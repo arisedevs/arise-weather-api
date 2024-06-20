@@ -1,5 +1,17 @@
 const axios = require("axios");
 
+const getInitialLocation = async(req, res) => {
+    const { q } = req.query;
+    try {
+
+        const response = await axios.get("http://ip-api.com/json");
+        res.json(response.data);
+
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
+        res.status(500).send("Error in fetching data.");
+    }
+}
 
 
 const getSearchLocation = async(req, res) => {
@@ -62,6 +74,7 @@ const getPhoto  = async (req, res) => {
 }
 
 module.exports = {
+    getInitialLocation,
     getSearchLocation,
     getLocation,
     getPhoto,
