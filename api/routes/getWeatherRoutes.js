@@ -1,9 +1,24 @@
 const express = require("express");
-const { getWeather, getYesterdayWeather } = require("../controllers/getWeatherController")
+const router = express.Router();
+const {
+  getWeather,
+  getYesterdayWeather,
+} = require("../controllers/getWeatherController");
+const cors = require("cors");
 
-const router = express();
+const allowedOrigin = "https://arise-weather-app.vercel.app/";
 
-router.get("/get-weather", getWeather);
-router.get("/get-yesterday-weather", getYesterdayWeather);
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (origin === allowedOrigin || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+router.get("/get-weather", cors(corsOptions), getWeather);
+router.get("/get-yesterday-weather", cors(corsOptions), getYesterdayWeather);
 
 module.exports = router;

@@ -1,11 +1,28 @@
 const express = require("express");
-const { getInitialLocation, getSearchLocation, getLocation, getPhoto } = require("../controllers/searchPlaceController.js")
-
 const router = express.Router();
+const {
+  getInitialLocation,
+  getSearchLocation,
+  getLocation,
+  getPhoto,
+} = require("../controllers/searchPlaceController.js");
+const cors = require("cors");
 
-router.get("/get-initial-location", getInitialLocation);
-router.get("/search-location", getSearchLocation);
-router.get("/get-location", getLocation);
-router.get("/get-photo", getPhoto);
+const allowedOrigin = "https://arise-weather-app.vercel.app/";
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (origin === allowedOrigin || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+router.get("/get-initial-location", cors(corsOptions), getInitialLocation);
+router.get("/search-location", cors(corsOptions), getSearchLocation);
+router.get("/get-location", cors(corsOptions), getLocation);
+router.get("/get-photo", cors(corsOptions), getPhoto);
 
 module.exports = router;

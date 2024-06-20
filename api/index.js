@@ -1,13 +1,11 @@
 const express = require("express");
 const env = require("dotenv");
-const cors = require("cors");
 const searchPlaceRoutes = require("./routes/searchPlaceRoutes")
 const getWeatherRoutes = require("./routes/getWeatherRoutes")
 env.config();
 
 const app = express();
 
-app.use(cors());
 app.use(express.json());
 
 app.use("/api", searchPlaceRoutes);
