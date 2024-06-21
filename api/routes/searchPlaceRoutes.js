@@ -8,7 +8,7 @@ const {
 } = require("../controllers/searchPlaceController.js");
 const cors = require("cors");
 
-const allowedOrigin = "https://arise-weather-app.vercel.app";
+const allowedOrigin = "https://ariseweather.vercel.app";
 
 const corsOptions = {
   origin: (origin, callback) => {
